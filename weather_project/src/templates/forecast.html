@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">5-Day Weather Forecast for {{ city }}</h2>
+                </div>
+                <div class="card-body">
+                    {% if forecast_data %}
+                    <div class="row">
+                        {% for day in forecast_data %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">{{ day.day }}</h5>
+                                    <img src="http://openweathermap.org/img/wn/{{ day.icon }}.png" alt="Weather icon">
+                                    <p class="card-text">{{ day.description }}</p>
+                                    <p class="card-text">High: {{ day.temp_max }} &deg;C</p>
+                                    <p class="card-text">Low: {{ day.temp_min }} &deg;C</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('weather', city=city) }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back to Weather</a>
+                    </div>
+                    {% else %}
+                    <p class="text-center">Could not retrieve 5-day forecast data for {{ city }}.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

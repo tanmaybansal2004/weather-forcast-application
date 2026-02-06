@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Hourly Weather Forecast for {{ city }}</h2>
+                </div>
+                <div class="card-body">
+                    {% if hourly_data %}
+                    <div class="row">
+                        {% for hour in hourly_data %}
+                        <div class="col-md-3 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">{{ hour.time }}</h5>
+                                    <img src="http://openweathermap.org/img/wn/{{ hour.icon }}.png" alt="Weather icon">
+                                    <p class="card-text">{{ hour.description }}</p>
+                                    <p class="card-text">Temp: {{ hour.temp }} &deg;C</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('weather', city=city) }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back to Weather</a>
+                    </div>
+                    {% else %}
+                    <p class="text-center">Could not retrieve hourly forecast data for {{ city }}.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

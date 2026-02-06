@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center"><i class="fas fa-map-marker-alt"></i> Weather for {{ weather_data.city }}, {{ weather_data.country }}</h2>
+                </div>
+                <div class="card-body">
+                    {% if weather_data %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong><i class="fas fa-thermometer-half"></i> Temperature:</strong> {{ weather_data.temperature }} &deg;C</p>
+                            <p><strong><i class="fas fa-temperature-low"></i> Feels Like:</strong> {{ weather_data.feels_like }} &deg;C</p>
+                            <p><strong><i class="fas fa-info-circle"></i> Description:</strong> {{ weather_data.description }} <img src="http://openweathermap.org/img/wn/{{ weather_data.icon }}.png" alt="Weather icon"></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong><i class="fas fa-tint"></i> Humidity:</strong> {{ weather_data.humidity }}%</p>
+                            <p><strong><i class="fas fa-wind"></i> Wind Speed:</strong> {{ weather_data.wind_speed }} m/s</p>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('forecast', city=city) }}" class="btn btn-info"><i class="fas fa-calendar-alt"></i> 5-Day Forecast</a>
+                        <a href="{{ url_for('hourly_forecast', city=city) }}" class="btn btn-info"><i class="fas fa-clock"></i> Hourly Forecast</a>
+                    </div>
+                    {% else %}
+                    <p class="text-center">Could not retrieve weather data for {{ city }}.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
